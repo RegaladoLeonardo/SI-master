@@ -36,31 +36,7 @@ router.get('/gestioncuestionarios',async(req,res)=>{
 //HACER LA PRUEBA
 router.get('/iniciar/:id_cuestionarios',async(req,res)=>{
     id_cuestionarios=req.params.id_cuestionarios;
-    try{
-  
-        const rows=await pool.query('SELECT * FROM cuestionarios WHERE id_usuario=?',[info.getid()])
-        i=0
-        valor_encontrado="0"
-        do{
-            
-            i++;
-            console.log(rows[i].cuestionario_hecho)
-            console.log(id_cuestionarios)
-            if(rows[i].cuestionario_hecho == id_cuestionarios){
-                valor_encontrado="1"
-                console.log(rows[i].cuestionario_hecho)
-                valor_de_id=rows[i].id_cuestionarios
-                console.log(valor_de_id)
-            }
-        }while(rows.length-1 > i || rows[i].cuestionario_hecho==id_cuestionarios)   
-if(valor_encontrado="1"){
-    id_cuestionarios=valor_de_id
-    const preguntas=await pool.query('SELECT resp_cuestionarios.id_pregunta_hecha, preguntas.id_pregunta, preguntas.descripcion,preguntas.res1,preguntas.res2,preguntas.res3,preguntas.res4,preguntas.solucion,resp_cuestionarios.solucion AS solucion_usuario FROM cuestionarios INNER JOIN resp_cuestionarios ON cuestionarios.id_cuestionarios=resp_cuestionarios.id_cuestionarios INNER JOIN preguntas ON preguntas.id_pregunta=resp_cuestionarios.id_pregunta_hecha WHERE cuestionarios.id_cuestionarios=?',[id_cuestionarios])
-    console.log(preguntas)
-    res.render('links/Usuarios/Resultado',{preguntas});
 
-}
-}catch(e){
 console.log(e)
     id_usuario=info.getid()
                 
@@ -68,28 +44,13 @@ console.log(e)
         const preguntas=await pool.query('SELECT * FROM preguntas WHERE id_cuestionarios=?',[id_cuestionarios])
         res.render('links/Usuarios/respondercuestionario',{preguntas})
   
-}
+
    
       
 });
 //RECIVIR LA CALIICACION Y RESPONDER CUESTIONARIO
 router.post('/respondercuestionario/:id_cuestionario',async(req,res)=>{
     id_cuestionarios=req.params.id_cuestionario;
-    const rows=await pool.query('SELECT * FROM cuestionarios WHERE id_usuario=?',[id_usuario])
-                       try{
-                        do{
-                            i++;
-                            if(rows[i].cuestionario_hecho != id_cuestionarios){
-                                valor_encontrado="1"
-                                valor_de_id=rows[i].cuestionario_hecho
-                            }
-                        }while(rows.length < i || rows[i].cuestionario_hecho != id_cuestionarios)   
-                if(valor_encontrado="1"){
-                    const preguntas=await pool.query('SELECT * FROM preguntas WHERE id_cuestionarios=?',[valor_de_id])
-                    res.render('links/Usuarios/respondercuestionario',{preguntas})
-              
-                }
-           }catch(e){
             try{
                 TAMAÑO_DE_RESPUESTAS= Object.keys(req.body).length;
                 //console.log(TAMAÑO_DE_RESPUESTAS)
@@ -159,7 +120,7 @@ router.post('/respondercuestionario/:id_cuestionario',async(req,res)=>{
                 console.log(error)    
                 res.redirect('/Usuario/gestioncuestionarios?idusu='+info.getid()); 
             }
-           }
+    
        
     
     
