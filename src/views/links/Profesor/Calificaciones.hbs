@@ -1,0 +1,42 @@
+<button type="button" onclick="history.back()" class="btn btn-success "><i class="fa fa-arrow-left" aria-hidden="true"></i>
+   
+   </button>
+
+<div class="container" style="padding: 50px;">
+
+
+             <div class="row justify-content-md-center py-sm-2 w=90 border-bottom " style="padding: 10px;text-align:center" >                
+                <div class="col-md-auto justify-content-center" >
+                   
+                    INICIAR CUESTIONARIO   
+                   
+                                                                 
+                    </div>
+                </div>
+            <div class="row py-sm-2  border-bottom " style="min-width: 300px;">
+                <div class="col-2 text-center overflow-auto" >Id</div>
+                <div class="col-2 text-center overflow-auto" overflow="auto">Usuario</div>
+                <div class="col-6 text-center overflow-auto" overflow="auto">Calificación</div>
+                <div class="col-2 text-center overflow-auto" overflow="auto">Actions</div>
+            </div>
+                
+        {{#each cuestionarios}}
+        <div class="row py-sm-2  border-bottom " style="min-width: 300px;">
+                <div class="col-2 text-center overflow-auto" >{{id_cuestionarios}}</div>
+                <div class="col-2 text-center overflow-auto" overflow="auto">{{usuario}}</div>
+                <div class="col-6 text-center overflow-auto" overflow="auto">{{calificacion}}</div>
+                <div class="col-2 text-center overflow-auto" overflow="auto">
+                    <a href="../ver_examen/{{id_cuestionarios}}" class="justify-content-center"> <i class="fas fa-exclamation justify-content-center"></i></a>  
+                                                
+                </div>
+            </div>
+
+            {{else}}
+                <div class="col-md-4 mx-auto">
+                    <card class="card card-body text-center">
+                        <p>cuestionario aun no echo por nadie</p>
+                    </card>
+                </div>
+        {{/each}}                
+                                        </div>
+                                        </div>
